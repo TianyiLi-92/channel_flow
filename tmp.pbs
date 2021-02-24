@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -N poiseuille5
+#PBS -l nodes=3:ppn=24
+#PBS -l walltime=240:00:00
+#PBS -q cal-s
+#PBS -V
+#PBS -S /bin/bash
+#PBS -o count.log
+#PBS -e count.log
+#PBS -j oe
+workdir=$HOME/WORKSPACE/lty/poiseuille_flow5
+cd $workdir
+source /opt/intel/composer_xe_2015/bin/compilervars.sh intel64
+source /opt/intel/mkl/bin/intel64/mklvars_intel64.sh
+source /opt/intel/impi/5.0.2.044/bin64/mpivars.sh
+date
+mpirun -genv I_MPI_DEVICE rdssm -machinefile $PBS_NODEFILE -np 64 ./poiseuille
+date
