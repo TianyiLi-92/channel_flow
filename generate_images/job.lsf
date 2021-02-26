@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+#BSUB -J generate_images
+#BSUB -q short
+#BSUB -n 80
+#BSUB -R "span[ptile=40]"
+#BSUB -W 5:00
+#BSUB -o stdout_%J.out
+#BSUB -e stderr_%J.err
+
+cd $LS_SUBCWD
+
+module load intel/2018.4
+module load mpi/intel/2018.4
+module load fftw/2.1.5
+
+mpirun -machinefile $LSB_DJOB_HOSTFILE -np 64 ./post_poiseuille
